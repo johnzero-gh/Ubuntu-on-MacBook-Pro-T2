@@ -1,0 +1,43 @@
+# T2 MacBook Pro GRUB Configuration
+# Copy this to /etc/default/grub
+#
+# After copying, run: sudo update-grub
+
+# Boot timeout in seconds
+GRUB_TIMEOUT=5
+
+# Hide GRUB menu by default (press Shift/Esc to show)
+GRUB_TIMEOUT_STYLE=hidden
+
+# Default boot entry (0 = first, saved = remember last choice)
+GRUB_DEFAULT=0
+
+# Distributor identification
+GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`
+
+# Essential kernel parameters for T2 compatibility
+# - intel_iommu=on iommu=pt: Required for T2 chip
+# - pcie_ports=compat: PCIe compatibility mode
+# - mem_sleep_default=deep: Better suspend/resume (optional)
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash intel_iommu=on iommu=pt pcie_ports=compat"
+
+# Additional parameters (uncomment if needed):
+#
+# For better suspend/resume:
+# GRUB_CMDLINE_LINUX_DEFAULT="quiet splash intel_iommu=on iommu=pt pcie_ports=compat mem_sleep_default=deep"
+#
+# For graphics issues:
+# GRUB_CMDLINE_LINUX_DEFAULT="quiet splash intel_iommu=on iommu=pt pcie_ports=compat i915.enable_psr=0"
+#
+# For audio issues:
+# GRUB_CMDLINE_LINUX_DEFAULT="quiet splash intel_iommu=on iommu=pt pcie_ports=compat snd_hda_intel.dmic_detect=0"
+
+# Uncomment to disable graphical terminal
+#GRUB_TERMINAL=console
+
+# Graphics mode for GRUB
+GRUB_GFXMODE=1920x1080x32
+GRUB_GFXPAYLOAD_LINUX=keep
+
+# Uncomment to get a beep at grub start
+#GRUB_INIT_TUNE="480 440 1"
