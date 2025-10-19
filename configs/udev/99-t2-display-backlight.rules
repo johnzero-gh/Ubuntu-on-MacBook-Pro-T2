@@ -1,0 +1,15 @@
+# T2 Display Backlight UDEV Rules
+# Install to: /etc/udev/rules.d/99-t2-display-backlight.rules
+#
+# After installation:
+# sudo udevadm control --reload-rules
+# sudo udevadm trigger
+
+# Allow users in video group to control display backlight
+ACTION=="add", SUBSYSTEM=="backlight", \
+    RUN+="/bin/chgrp video /sys/class/backlight/%k/brightness", \
+    RUN+="/bin/chmod g+w /sys/class/backlight/%k/brightness"
+
+# Alternative: Allow all users (less secure)
+# ACTION=="add", SUBSYSTEM=="backlight", \
+#     RUN+="/bin/chmod a+w /sys/class/backlight/%k/brightness"

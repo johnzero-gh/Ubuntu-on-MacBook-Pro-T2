@@ -1,0 +1,15 @@
+# T2 Keyboard Backlight UDEV Rules
+# Install to: /etc/udev/rules.d/99-t2-keyboard-backlight.rules
+#
+# After installation:
+# sudo udevadm control --reload-rules
+# sudo udevadm trigger
+
+# Allow users in video group to control keyboard backlight
+ACTION=="add", SUBSYSTEM=="leds", KERNEL=="spi::kbd_backlight", \
+    RUN+="/bin/chmod g+w /sys/class/leds/%k/brightness", \
+    RUN+="/bin/chgrp video /sys/class/leds/%k/brightness"
+
+# Alternative: Allow all users (less secure)
+# ACTION=="add", SUBSYSTEM=="leds", KERNEL=="spi::kbd_backlight", \
+#     RUN+="/bin/chmod a+w /sys/class/leds/%k/brightness"
